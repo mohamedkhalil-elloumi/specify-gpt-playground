@@ -1,24 +1,15 @@
-import { Configuration, OpenAIApi } from "openai";
-import { z } from "zod";
+const { Configuration } = require("openai");
+const { OpenAIApi } = require("openai");
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+module.exports = async function (req, res) {
+  const configuration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
 
-export default async function (req, res) {
-  if (!configuration.apiKey) {
-    res.status(500).json({
-      error: {
-        message:
-          "OpenAI API key not configured, please follow instructions in README.md",
-      },
-    });
-    return;
-  }
+  const openai = new OpenAIApi(configuration);
 
   const input = req.body || "";
-  console.log("input", input);
+
   if (input.companyName.trim().length === 0) {
     res.status(400).json({
       error: {
@@ -56,11 +47,6 @@ export default async function (req, res) {
       designSystemName.data.choices[0].text
     );
 
-    console.log(
-      "designSystemNameAndDescription",
-      designSystemNameAndDescription
-    );
-
     const designSystemTokens = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: generateDesignSystem(
@@ -93,7 +79,7 @@ export default async function (req, res) {
       });
     }
   }
-}
+};
 
 function generateDesignSystemName(input) {
   const capitalizedCompanyName =

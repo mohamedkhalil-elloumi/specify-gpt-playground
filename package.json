@@ -1,16 +1,18 @@
 {
-  "name": "openai-quickstart-node",
+  "name": "specify-gpt-playground",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "dependencies": {
-    "next": "^13.1.1",
-    "openai": "^3.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "openai": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
